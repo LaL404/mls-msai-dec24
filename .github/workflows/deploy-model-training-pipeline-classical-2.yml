@@ -43,7 +43,7 @@ jobs:
       environment_file:  mlops/azureml/train/train-env.yml
       conda_file: data-science/environment/train-conda.yml
     secrets:
-      creds: ${{secrets.AZURE_CREDENTIAL}} 
+      creds: ${{secrets.AZURE_CREDENTIALS}}
       
   run-pipeline:
     needs: [get-config, register-environment, create-compute, register-dataset]
@@ -54,4 +54,4 @@ jobs:
       parameters-file:  mlops/azureml/train/newpipeline.yml
       job-name: mlops-pipeline
     secrets:
-      creds: ${{secrets.AZURE_CREDENTIALS}}
+      creds: ${{secrets.AZURE_CREDENTIALS}}  
