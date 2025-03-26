@@ -3,10 +3,10 @@ azure-ai-ml==1.0.0
 azureml-core==1.38.0
 azureml-mlflow==1.38.0
 
-# Storage dependencies (compatible with above)
-azure-storage-blob==12.10.0
-azure-storage-file-datalake==12.10.0
-azure-storage-file-share==12.10.0
+# Storage dependencies (compatible with azure-ai-ml 1.0.0)
+azure-storage-blob==12.9.0
+azure-storage-file-datalake==12.3.0
+azure-storage-file-share==12.3.0
 
 # Utility packages
 numpy==1.24.4
@@ -16,6 +16,6 @@ pyarrow==7.0.0
 pyyaml==6.0.1
 tqdm==4.63.0
 
-# Other optional packages you might need
+# Optional packages
 matplotlib==3.7.1
 joblib==1.2.0
