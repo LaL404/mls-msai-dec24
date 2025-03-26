@@ -1,4 +1,4 @@
-black==22.3.0
-flake8==4.0.1
-isort==5.10.1
-pre-commit==2.19.0
+azure-ai-ml==1.0.0
+azure-storage-blob==12.10.0
+azure-storage-file-datalake==12.10.0
+# Add the rest of your dependencies below...
