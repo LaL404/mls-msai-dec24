@@ -2,7 +2,7 @@ from azure.ai.ml.entities import Environment
 from azure.ai.ml import MLClient
 from azure.identity import DefaultAzureCredential
 
-ml_client = MLClient.from_config(credential=DefaultAzureCredential())
+ml_client = MLClient.from_config(credential=DefaultAzureCredential(),path="config (2).json")
 
 my_env = Environment(
     name="training-env",
