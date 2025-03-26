@@ -10,7 +10,7 @@ inputs:
     path: azureml:used-cars-data@latest
 
 outputs:
-  train_data:  # These should specify `type` at minimum (optional but better)
+  train_data:
     type: uri_folder
   test_data:
     type: uri_folder
@@ -40,34 +40,43 @@ jobs:
       test_data: ${{parent.outputs.test_data}}
 
   sweep_step:
-  name: sweep_job
-  display_name: sweep-job
-  type: sweep
-  inputs:
-    train_data: ${{parent.jobs.prep_data.outputs.train_data}}
-    test_data: ${{parent.jobs.prep_data.outputs.test_data}}
-  outputs:
-    model_output:
-      type: mlflow_model
-  sampling_algorithm: random
-  trial:
-    type: command          # ✅ Add this line
-    component: ./train.yml # ✅ Refers to your training component
-  search_space:
-    n_estimators:
-      type: choice
-      values: [10, 20, 30, 50]
-    max_depth:
-      type: choice
-      values: [1, 3, 5, 10]
-  objective:
-    goal: minimize
-    primary_metric: MSE
-  limits:
-    max_total_trials: 20
-    max_concurrent_trials: 10
-    timeout: 7200
-
+    type: sweep
+    display_name: sweep-job
+    trial:
+      type: command
+      code: ../../../data-science/src
+      command: >-
+        python train.py 
+        --train_data ${{inputs.train_data}} 
+        --test_data ${{inputs.test_data}} 
+        --n_estimators ${{inputs.n_estimators}} 
+        --max_depth ${{inputs.max_depth}} 
+        --model_output ${{outputs.model_output}}
+      environment:
+        conda_file: mlops/azureml/train/conda_dependencies.yml
+        image: mcr.microsoft.com/azureml/openmpi3.1.2-ubuntu18.04
+      inputs:
+        train_data: ${{parent.jobs.prep_data.outputs.train_data}}
+        test_data: ${{parent.jobs.prep_data.outputs.test_data}}
+        n_estimators: 10
+        max_depth: 3
+      outputs:
+        model_output: ${{parent.outputs.model_output}}
+    sampling_algorithm: random
+    search_space:
+      n_estimators:
+        type: choice
+        values: [10, 20, 30, 50]
+      max_depth:
+        type: choice
+        values: [1, 3, 5, 10]
+    objective:
+      goal: minimize
+      primary_metric: MSE
+    limits:
+      max_total_trials: 20
+      max_concurrent_trials: 10
+      timeout: 7200
 
   register_model:
     name: register_model
