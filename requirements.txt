@@ -4,9 +4,9 @@ azureml-core==1.38.0
 azureml-mlflow==1.38.0
 
 # Storage dependencies (compatible with azure-ai-ml 1.0.0)
-azure-storage-blob==12.9.0
-azure-storage-file-datalake==12.3.0
-azure-storage-file-share==12.3.0
+azure-storage-blob==12.10.0
+azure-storage-file-datalake==12.10.0
+azure-storage-file-share==12.10.0
 
 # Utility packages
 numpy==1.24.4
