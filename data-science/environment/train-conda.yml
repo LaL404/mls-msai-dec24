@@ -1,18 +1,14 @@
-name: training-env  # 👍 Clear name for your registered env
+name: training-env
 channels:
   - conda-forge
 dependencies:
-  - python=3.8  # 👍 More current than 3.7.5
+  - python=3.8
   - pip
   - scikit-learn=0.24.1
   - pandas=1.2.1
   - joblib=1.0.0
   - matplotlib=3.3.3
-  - pyarrow=7.0.0
- # - pyarrow=10.0.0
   - pip:
+      - pyarrow==7.0.0         # ⬅ moved to pip section
       - azureml-mlflow==1.38.0
       - azure-ai-ml==1.0.0
-      # Consider removing or managing these:
-      # - git+https://github.com/microsoft/AzureML-Observability#subdirectory=aml-obs-client
-      # - git+https://github.com/microsoft/AzureML-Observability#subdirectory=aml-obs-collector
