@@ -24,6 +24,9 @@ command: >-
   --n_estimators ${{inputs.n_estimators}}
   --max_depth ${{inputs.max_depth}}
   --model_output ${{outputs.model_output}}
-environment: azureml://registries/azureml/environments/AzureML-sklearn-1.0-ubuntu20.04-py38-cpu/versions/28
+environment:
+  conda_file: mlops/azureml/train/conda_dependencies.yml
+  image: mcr.microsoft.com/azureml/openmpi3.1.2-ubuntu18.04
+
 
 
