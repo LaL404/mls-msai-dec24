@@ -1,8 +1,0 @@
-from azure.ai.ml.entities import Environment
-
-custom_env = Environment(
-    name="my_custom_env",
-    description="Pinned versions for Azure AI + storage",
-    conda_file="conda_dependencies.yml",
-    image="mcr.microsoft.com/azureml/openmpi3.1.2-ubuntu18.04"
-)
