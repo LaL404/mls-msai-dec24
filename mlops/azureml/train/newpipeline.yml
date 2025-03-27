@@ -39,30 +39,17 @@ jobs:
       train_data: ${{parent.outputs.train_data}}
       test_data: ${{parent.outputs.test_data}}
 
-  sweep_step:
+    sweep_step:
     type: sweep
     display_name: sweep-job
-    trial:
-      type: command
-      code: ../../../data-science/src
-      command: >-
-        python train.py 
-        --train_data ${{inputs.train_data}} 
-        --test_data ${{inputs.test_data}} 
-        --n_estimators ${{inputs.n_estimators}} 
-        --max_depth ${{inputs.max_depth}} 
-        --model_output ${{outputs.model_output}}
-      environment:
-        conda_file: mlops/azureml/train/conda_dependencies.yml
-        image: mcr.microsoft.com/azureml/openmpi3.1.2-ubuntu18.04
-      inputs:
-        train_data: ${{parent.jobs.prep_data.outputs.train_data}}
-        test_data: ${{parent.jobs.prep_data.outputs.test_data}}
-        n_estimators: 10
-        max_depth: 3
-      outputs:
-        model_output: ${{parent.outputs.model_output}}
+    inputs:
+      train_data: ${{parent.jobs.prep_data.outputs.train_data}}
+      test_data: ${{parent.jobs.prep_data.outputs.test_data}}
+    outputs:
+      model_output:
+        type: mlflow_model
     sampling_algorithm: random
+    trial: ./train.yml  # now this is a component definition
     search_space:
       n_estimators:
         type: choice
